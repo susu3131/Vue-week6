@@ -4,6 +4,6 @@
 
 <template>
   <main>
-    <h1>首頁</h1>
+    <h1>前台產品列表</h1>
   </main>
 </template>

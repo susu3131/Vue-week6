@@ -6,16 +6,23 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: '首頁',
+      component: () => import ('../views/HomeView.vue')
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/product',
+      name: '前台產品列表',
+      component: () => import ('../views/ProductView.vue')
+    },
+    {
+      path: '/cart',
+      name: '購物車',
+      component: () => import ('../views/UserCart.vue')
+    },
+    {
+      path: '/admin',
+      name: '後台訂單管理',
+      component: () => import ('../views/AdminView.vue')
     }
   ]
 })
