@@ -7,10 +7,13 @@
 - 建立.env 環境變數
 - 安裝套件 (npm安裝 > import引入)
   axios : ```npm i axios```
+  vue-axios: ```npm install vue-axios axios```
   bootstrap ```:npm i bootstrap``` 、```npm i @popperjs/core``` (必須相關免匯入)、```npm add -D sass```(sass/scss安裝)
   vueloading : ``` npm install vue-loading-overlay@^6.0 ```
   VeeValiadation: ```npm i vee-validate --save```
 
+  vue-axios
+    載入後可以不用每個元件都使用import匯入axios，只要寫this.$http即可
   bootstrap
   1. 複製裡面的variables可自訂樣式
   2. 建立all.scss，在main.js import 引入

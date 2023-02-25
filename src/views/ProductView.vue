@@ -1,24 +1,31 @@
 <template>
-  產品列表
-  <table class="form-control">
-    <tr>
-      <td>圖片</td>
-      <td>商品名稱</td>
+  <table class="form-control w-75 mx-auto text-center" >
+    <p class="h2 text-center m-3">產品列表</p>
+    <thead class="text-center" >
+      <td  >圖片</td>
+      <td class=" w-25">商品名稱</td>
       <td>價格</td>
-      <td></td>
+      <td ></td>
+    </thead>
+    <tr v-for="product in products" :key="product.id">
+      <td ><img :src="product.imageUrl" alt=""  width="200"></td>
+      <td >{{product.title}}</td>
+      
+      <td >
+        <div v-if ="product.price === product.origin_price" > 原價 {{product.origin_price}} / {{product.unit}}</div>
+        <div v-else>
+          <del> 原價 {{product.origin_price}} / {{product.unit}}</del>
+          <div class="text-danger" >{{product.price}} / {{product.unit}}</div>
+        </div>
+
+
+      </td>
+      <td>
+        <button class="btn btn-danger d-block w-100">查看更多</button>
+        <button class="btn btn-outline-success d-block w-100"> 加入購物車</button>
+      </td>
     </tr>
-    <tr>
-      <td>USA</td>
-      <td>Washington D.C.</td>
-      <td>309 million</td>
-      <td>English</td>
-    </tr>
-    <tr>
-      <td>Sweden</td>
-      <td>Stockholm</td>
-      <td>9 million</td>
-      <td>Swedish</td>
-    </tr>
+    
   </table>
 </template>
 
@@ -31,13 +38,13 @@
   export default{
     data (){
       return {
-        product:[]
+        products:[]
       }
     },
     methods: {
       getProducts(){
-        axios.get(`${VITE_APP_API}/api/${VITE_APP_APIPATH}/products`)
-          .then(res=> console.log(res.data))
+        this.$http.get(`${VITE_APP_API}/api/${VITE_APP_APIPATH}/products`)
+          .then(res=> this.products = res.data.products)
       }
     },
     mounted() {
