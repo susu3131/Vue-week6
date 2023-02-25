@@ -1,0 +1,1 @@
+import{_ as o,o as t,c as s,a as e}from"./index-7469e26b.js";const n={},c={class:"h1 text-danger"},_=e("p",null,"404 Not Found",-1),a=e("p",null,"找不到這個網頁",-1),r=[_,a];function d(l,i){return t(),s("main",c,r)}const f=o(n,[["render",d]]);export{f as default};
