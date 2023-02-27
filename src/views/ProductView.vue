@@ -1,54 +1,47 @@
 <template>
-  <table class="form-control w-75 mx-auto text-center" >
-    <p class="h2 text-center m-3">產品列表</p>
-    <thead class="text-center" >
-      <td  >圖片</td>
-      <td class=" w-25">商品名稱</td>
-      <td>價格</td>
-      <td ></td>
-    </thead>
-    <tr v-for="product in products" :key="product.id">
-      <td ><img :src="product.imageUrl" alt=""  width="200"></td>
-      <td >{{product.title}}</td>
-      
-      <td >
-        <div v-if ="product.price === product.origin_price" > 原價 {{product.origin_price}} / {{product.unit}}</div>
-        <div v-else>
-          <del> 原價 {{product.origin_price}} / {{product.unit}}</del>
-          <div class="text-danger" >{{product.price}} / {{product.unit}}</div>
+  <div class="container">
+    <div class="d-flex  fa-bold">
+      <main>單一產品頁面</main>
+      <router-link to="/products" class="ms-3">回產品頁面</router-link>
+      <hr class="border border-1">
+    </div>
+    <h2>{{ product.title }}</h2>
+    <div class="d-flex">
+      <img :src="product.imageUrl" alt="" class="w-50" />
+      <div>
+        <p>敘述:{{ product.description }}</p>
+        <p>商品說明:{{ product.content }}</p>
+
+        <div v-if="product.price === product.origin_price">
+          售價: {{ product.origin_price }}元
         </div>
-
-
-      </td>
-      <td>
-        <button class="btn btn-danger d-block w-100">查看更多</button>
-        <button class="btn btn-outline-success d-block w-100"> 加入購物車</button>
-      </td>
-    </tr>
-    
-  </table>
+        <p v-else>售價: {{ product.price }}元 / {{ product.unit }}</p>
+        <button class="btn btn-danger">加到購物車</button>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script>  
-  //代入環境變數
+<script>
+const { VITE_APP_API, VITE_APP_APIPATH } = import.meta.env; //解構方式撰寫
 
-  const { VITE_APP_API, VITE_APP_APIPATH }= import.meta.env //解構方式撰寫
-
-
-  export default{
-    data (){
-      return {
-        products:[]
-      }
+export default {
+  data() {
+    return {
+      product: {},
+    };
+  },
+  methods: {
+    getProduct() {
+      //取得單一產品的遠端資料
+      const { id } = this.$route.params;
+      this.$http
+        .get(`${VITE_APP_API}/api/${VITE_APP_APIPATH}/product/${id}`)
+        .then((res) => (this.product = res.data.product));
     },
-    methods: {
-      getProducts(){
-        this.$http.get(`${VITE_APP_API}/api/${VITE_APP_APIPATH}/products`)
-          .then(res=> this.products = res.data.products)
-      }
-    },
-    mounted() {
-      this.getProducts()
-    }
-  }
+  },
+  mounted() {
+    this.getProduct();
+  },
+};
 </script>

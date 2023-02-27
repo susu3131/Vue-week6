@@ -10,8 +10,13 @@ const router = createRouter({
       component: () => import ('../views/HomeView.vue'),
       children:[
         {
-          path: '/product',
+          path: '/products',
           name: '前台產品列表',
+          component: () => import ('../views/ProductsView.vue')
+        },
+        {
+          path: '/product/:id',
+          name: '單一產品',
           component: () => import ('../views/ProductView.vue')
         },
         {
